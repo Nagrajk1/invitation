@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sumithra & Vittal – Wedding Invitation</title>
+    <meta name="description"
+        content="Join us as Sumithra & Vittal get married on March 30, 2026 at Shri Mahaganapati Mahamaya Temple, Shirali." />
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;500&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+        :root {
+            --gold: #C9922B;
+            --gold-light: #E8B84B;
+            --gold-pale: #F2D89A;
+            --ivory: #FDF6EC;
+            --candle: #F5A623;
+        }
+
+        /* ── OVERLAY ── */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            overflow: hidden;
+            pointer-events: all;
+        }
+
+        .intro-bg {
+            position: absolute;
+            inset: 0;
+            background: #0D0500;
+        }
+
+        /* ── CURTAINS ── */
+        .intro-curtain-left,
+        .intro-curtain-right {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            will-change: transform;
+            overflow: hidden;
+        }
+
+        .intro-curtain-left {
+            left: 0;
+        }
+
+        .intro-curtain-right {
+            right: 0;
+            transform: scaleX(-1);
+        }
+
+        .curtain-fabric {
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(2deg,
+                    rgba(180, 100, 30, 0.18) 0px, rgba(160, 80, 20, 0.08) 3px,
+                    rgba(200, 130, 50, 0.15) 6px, rgba(140, 60, 10, 0.05) 10px),
+                linear-gradient(180deg,
+                    #8B1A1A 0%, #6B1212 20%, #7B1C1C 40%,
+                    #5A0E0E 60%, #6B1212 80%, #4A0808 100%);
+            box-shadow: inset -20px 0 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .curtain-folds {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(175deg,
+                    transparent 0%, rgba(0, 0, 0, 0.15) 8%, transparent 16%);
+        }
+
+        .curtain-edge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--gold-light), var(--gold), var(--gold-pale), var(--gold));
+            box-shadow: 0 0 20px rgba(201, 146, 43, 0.8);
+        }
+
+        /* ── TASSELS ── */
+        .tassel-row {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(180deg, #8B6220 0%, #C9922B 40%, #A87020 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            z-index: 2;
+        }
+
+        .tassel {
+            width: 6px;
+            height: 36px;
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 60%, #7A5010 100%);
+            border-radius: 0 0 4px 4px;
+            position: relative;
+        }
+
+        .tassel::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--gold-light);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(201, 146, 43, 0.8);
+        }
+
+        /* ── CENTER CONTENT ── */
+        .intro-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .intro-halo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse,
+                    rgba(201, 146, 43, 0.22) 0%,
+                    rgba(245, 166, 35, 0.06) 40%,
+                    transparent 70%);
+            opacity: 0;
+            animation: haloGrow 2s ease 1s forwards;
+        }
+
+        @keyframes haloGrow {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.3);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .intro-diya {
+            font-size: 3.5rem;
+            opacity: 0;
+            transform: scale(0.5);
+            filter: drop-shadow(0 0 0px rgba(245, 166, 35, 0));
+            animation: diyaLight 1.2s ease 0.4s forwards;
+        }
+
+        @keyframes diyaLight {
+            0% {
+                opacity: 0;
+                transform: scale(0.4);
+                filter: drop-shadow(0 0 0px rgba(245, 166, 35, 0));
+            }
+
+            40% {
+                opacity: 1;
+                transform: scale(1.2);
+                filter: drop-shadow(0 0 30px rgba(245, 166, 35, 0.9));
+            }
+
+            70% {
+                transform: scale(0.95);
+                filter: drop-shadow(0 0 20px rgba(245, 166, 35, 0.7));
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: drop-shadow(0 0 25px rgba(245, 166, 35, 0.8));
+            }
+        }
+
+        .intro-om {
+            font-family: serif;
+            font-size: 5rem;
+            font-weight: 300;
+            color: var(--gold-light);
+            opacity: 0;
+            margin: 10px 0;
+            text-shadow:
+                0 0 30px rgba(201, 146, 43, 0.9),
+                0 0 70px rgba(201, 146, 43, 0.5),
+                0 0 110px rgba(201, 146, 43, 0.3);
+            animation: omReveal 1.5s ease 0.9s forwards;
+        }
+
+        @keyframes omReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateY(10px);
+            }
+
+            55% {
+                opacity: 1;
+                transform: scale(1.08);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .intro-names {
+            font-family: serif;
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--ivory);
+            opacity: 0;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 40px rgba(201, 146, 43, 0.4);
+            animation: namesReveal 1.2s ease 1.7s forwards;
+        }
+
+        @keyframes namesReveal {
+            0% {
+                opacity: 0;
+                letter-spacing: 0.35em;
+            }
+
+            100% {
+                opacity: 1;
+                letter-spacing: 0.05em;
+            }
+        }
+
+        .intro-tagline {
+            font-family: sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.28em;
+            color: var(--gold);
+            opacity: 0;
+            margin-top: 10px;
+            text-transform: uppercase;
+            animation: tagFade 1s ease 2.3s forwards;
+        }
+
+        @keyframes tagFade {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── PETAL BURST ── */
+        .intro-petal-burst {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .burst-petal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            animation: burstOut linear forwards;
+        }
+
+        @keyframes burstOut {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) rotate(var(--r)) translateX(0px) scale(1);
+            }
+
+            80% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(var(--r)) translateX(var(--d)) scale(0.3);
+            }
+        }
+
+        /* ── LIGHT RAYS ── */
+        .intro-light-rays {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            background: conic-gradient(from 270deg at 50% 50%,
+                    transparent 0deg,
+                    rgba(245, 220, 150, 0.07) 5deg, transparent 10deg,
+                    rgba(245, 220, 150, 0.04) 20deg, transparent 25deg,
+                    rgba(245, 220, 150, 0.08) 35deg, transparent 40deg);
+            animation: raysIn 1.2s ease 2.9s forwards;
+        }
+
+        @keyframes raysIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) rotate(-5deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.3) rotate(0deg);
+            }
+        }
+
+        /* ── CURTAIN OPEN ── */
+        .intro-curtain-left.open {
+            animation: curtainL 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        .intro-curtain-right.open {
+            animation: curtainR 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        @keyframes curtainL {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes curtainR {
+            0% {
+                transform: scaleX(-1) translateX(0);
+            }
+
+            100% {
+                transform: scaleX(-1) translateX(-100%);
+            }
+        }
+
+        /* ── FINAL FADE OUT ── */
+        .intro-fadeout {
+            animation: overlayOut 0.9s ease forwards;
+        }
+
+        @keyframes overlayOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ═══ INTRO OVERLAY ═══ -->
+    <div id="intro-overlay">
+        <div class="intro-bg"></div>
+        <div class="intro-light-rays"></div>
+
+        <div class="intro-curtain-left" id="curtain-left">
+            <div class="curtain-fabric"></div>
+            <div class="curtain-folds"></div>
+            <div class="tassel-row" id="tassels-left"></div>
+            <div class="curtain-edge"></div>
+        </div>
+
+        <div class="intro-curtain-right" id="curtain-right">
+            <div class="curtain-fabric"></div>
+            <div class="curtain-folds"></div>
+            <div class="tassel-row" id="tassels-right"></div>
+            <div class="curtain-edge"></div>
+        </div>
+
+        <div class="intro-halo"></div>
+        <div class="intro-petal-burst" id="petal-burst"></div>
+
+        <div class="intro-center">
+            <div class="intro-diya">🪔</div>
+            <div class="intro-om">ॐ</div>
+            <!-- ✏️ Change these to your couple's names and date -->
+            <div class="intro-names">Sumithra &amp; Vittal</div>
+            <div class="intro-tagline">Shubh Vivah · March 30, 2026</div>
+        </div>
+    </div>
+
+    <!-- Floating petals container -->
+    <div class="petals-container" id="petals" aria-hidden="true"></div>
+
+    <!-- ═══ NAVIGATION ═══ -->
+    <nav id="navbar">
+        <a href="#home" class="nav-brand">S &amp; V</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#couple">Our Story</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- ═══ HERO SECTION ═══ -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+
+        <!-- Gold pillars -->
+        <div class="pillar pillar-left"></div>
+        <div class="pillar pillar-right"></div>
+        <div class="pillar pillar-left2"></div>
+        <div class="pillar pillar-right2"></div>
+
+        <!-- Curtain drapes -->
+        <div class="curtain curtain-left"></div>
+        <div class="curtain curtain-right"></div>
+
+        <!-- Twinkling lights bar at top -->
+        <div class="lights-bar"></div>
+
+        <!-- Hanging bells & flowers -->
+        <div class="hanging-decor" aria-hidden="true">
+            <span>🔔</span>
+            <span>🌸</span>
+            <span>🔔</span>
+            <span>🌸</span>
+            <span>🔔</span>
+        </div>
+
+        <!-- Arch bottom glow -->
+        <div class="arch-glow"></div>
+
+        <!-- Candle row at bottom -->
+        <div class="candle-row" aria-hidden="true">
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+            <div class="candle-dot"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <p class="eyebrow">ॐ — With Divine Blessings</p>
+
+            <h1 class="couple-name">
+                <em>Sumithra</em>
+                <span class="ampersand">&amp;</span>
+                <em>Vittal</em>
+            </h1>
+
+            <p class="om-line">🪔 🌸 🪔</p>
+
+            <div class="ornament">✦ Shubh Vivah ✦</div>
+
+            <p class="verse">
+                With marigolds and sacred fire,<br />
+                with family, music, and joy —<br />
+                <span class="verse-translation">two souls step into forever.</span>
+            </p>
+            <p class="verse-ref">— Saptapadi Vow</p>
+
+            <div class="date-venue">
+                <div class="date-text">Monday, March 30, 2026</div>
+                <div class="venue-text">Shri Mahaganapati Mahamaya Temple, Shirali</div>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="countdown" id="countdown">
+                <div class="count-box">
+                    <span class="count-number" id="days">000</span>
+                    <span class="count-label">Days</span>
+                </div>
+                <div class="count-box">
+                    <span class="count-number" id="hours">00</span>
+                    <span class="count-label">Hours</span>
+                </div>
+                <div class="count-box">
+                    <span class="count-number" id="minutes">00</span>
+                    <span class="count-label">Minutes</span>
+                </div>
+                <div class="count-box">
+                    <span class="count-number" id="seconds">00</span>
+                    <span class="count-label">Seconds</span>
+                </div>
+            </div>
+
+            <div class="cta-wrap">
+                <a href="#events" class="btn-primary">View Events</a>
+            </div>
+
+            <div class="diya-row" aria-hidden="true">🪔 🌺 🪷 🌺 🪔</div>
+        </div>
+    </section>
+
+    <!-- ═══ OUR STORY SECTION ═══ -->
+    <section id="couple" class="section couple-section">
+        <div class="section-header">
+            <span class="section-tag">Written in the Stars</span>
+            <h2 class="section-title">Our Beautiful Journey</h2>
+        </div>
+
+        <!-- Bride & Groom Cards -->
+        <div class="couple-cards">
+            <!-- Bride Card -->
+            <div class="person-card">
+                <div class="person-photo-wrap">
+                    <img src="images/bride.jpg" alt="Sumithra" class="person-photo" id="bride-photo" />
+                    <div class="photo-ring"></div>
+                </div>
+                <h3 class="person-name" id="bride-name">Sumithra</h3>
+                <p class="person-role">The Bride</p>
+                <p class="person-bio" id="bride-bio">A beautiful soul with grace and warmth...</p>
+            </div>
+
+            <!-- Heart divider -->
+            <div class="couple-heart" aria-hidden="true">💕</div>
+
+            <!-- Groom Card -->
+            <div class="person-card">
+                <div class="person-photo-wrap">
+                    <img src="images/groom.jpg" alt="Vittal" class="person-photo" id="groom-photo" />
+                    <div class="photo-ring"></div>
+                </div>
+                <h3 class="person-name" id="groom-name">Vittal</h3>
+                <p class="person-role">The Groom</p>
+                <p class="person-bio" id="groom-bio">A dedicated and caring person...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PERSONAL NOTE SECTION ═══ -->
+    <section class="section personal-note-section">
+        <div class="section-header">
+            <span class="section-tag">A Personal Note From Us</span>
+        </div>
+
+        <div class="personal-note-card">
+            <div class="note-corner top-left">✦</div>
+            <div class="note-corner top-right">✦</div>
+            <div class="note-corner bottom-left">✦</div>
+            <div class="note-corner bottom-right">✦</div>
+
+            <h2 class="note-title">To our dearest family &amp; friends,</h2>
+
+            <p class="note-text">
+                You've walked alongside us through every season of life — the laughter, the ordinary days, and the
+                moments that quietly shaped who we are. <span class="highlight-text">You are not just guests to
+                    us.</span> You are the reason our hearts feel full as we step into this new chapter.
+            </p>
+
+            <div class="note-divider">
+                <span class="dot"></span>
+                <span class="dot center"></span>
+                <span class="dot"></span>
+            </div>
+
+            <p class="note-text">
+                On this <span class="highlight-text">auspicious and joyful day</span>, as we come together before the
+                sacred fire and take our vows, we would be truly honoured to have you there — to witness, to celebrate,
+                and to bless us with your love and presence.
+            </p>
+        </div>
+
+        <div class="note-footer">
+            <p class="note-closing">Come, be part of our celebration. 🌸</p>
+        </div>
+    </section>
+
+    <!-- ═══ EVENTS SECTION ═══ -->
+    <section id="events" class="section events-section">
+        <div class="section-header">
+            <span class="section-tag">Save The Date</span>
+            <h2 class="section-title">Wedding Events</h2>
+        </div>
+
+        <div class="events-grid" id="events-grid">
+            <!-- Events injected by JS -->
+        </div>
+    </section>
+
+    <!-- ═══ GALLERY SECTION ═══ -->
+    <section id="gallery" class="section gallery-section">
+        <div class="section-header">
+            <span class="section-tag">Captured Moments</span>
+            <h2 class="section-title">Our Gallery</h2>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters" role="tablist">
+            <button class="filter-btn active" data-filter="all">All</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Images injected here -->
+        </div>
+
+        <!-- Lightbox (hidden by default) -->
+        <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+            <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+            <img src="" alt="" id="lightboxImg" />
+            <p id="lightboxCaption"></p>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACT SECTION ═══ -->
+    <section id="contact" class="section contact-section">
+        <div class="section-header">
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Contact Us</h2>
+        </div>
+
+        <div class="contact-card">
+            <h3>Have Questions?</h3>
+            <p>Feel free to reach out to us!</p>
+            <a href="tel:+7090878288" class="contact-phone" id="contact-phone">
+                <i class="fas fa-phone"></i>
+                <span id="contact-display">Nagaraj: +91 7090878288</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer id="footer" class="site-footer">
+        <div class="footer-hearts" aria-hidden="true">💕</div>
+        <h2 class="footer-names hero-names-footer">Sumithra & Vittal</h2>
+        <p class="footer-date" id="footer-date">January 23, 2026</p>
+        <p class="footer-hashtag" id="footer-hashtag">#VittalSumithraWedding</p>
+        <p class="footer-credit">Made with <span aria-label="love">❤️</span> for our special day</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+
+    <!-- ═══ INTRO OVERLAY SCRIPT ═══ -->
+    <script>
+        (function () {
+            // Build tassels
+            ['tassels-left', 'tassels-right'].forEach(id => {
+                const row = document.getElementById(id);
+                for (let i = 0; i < 18; i++) {
+                    const t = document.createElement('div');
+                    t.className = 'tassel';
+                    row.appendChild(t);
+                }
+            });
+
+            // Petal burst
+            function burstPetals() {
+                const burst = document.getElementById('petal-burst');
+                const emojis = ['🌸', '🌺', '🌼', '🌷', '🪷', '✿', '❀'];
+                for (let i = 0; i < 32; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'burst-petal';
+                    p.style.setProperty('--r', (360 / 32 * i) + 'deg');
+                    p.style.setProperty('--d', (180 + Math.random() * 220) + 'px');
+                    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    p.style.fontSize = (0.8 + Math.random() * 1.1) + 'rem';
+                    p.style.animationDuration = (0.9 + Math.random() * 0.6) + 's';
+                    p.style.animationDelay = (Math.random() * 0.25) + 's';
+                    burst.appendChild(p);
+                }
+            }
+
+            // Timeline
+            // 0.4s  → diya lights
+            // 0.9s  → Om glows
+            // 1.7s  → names appear
+            // 2.3s  → tagline
+            // 2.9s  → light rays
+            // 3.2s  → curtains open + petal burst
+            // 4.8s  → overlay fades away
+
+            setTimeout(() => {
+                document.getElementById('curtain-left').classList.add('open');
+                document.getElementById('curtain-right').classList.add('open');
+                burstPetals();
+            }, 3200);
+
+            setTimeout(() => {
+                const ov = document.getElementById('intro-overlay');
+                ov.classList.add('intro-fadeout');
+                setTimeout(() => ov.remove(), 950);
+            }, 4800);
+        })();
+    </script>
+</body>
+
+</html>
